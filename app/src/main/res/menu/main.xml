@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_open_bt"
+        android:title="Open bluetooth" />
+
+    <item
+        android:id="@+id/main_close_bt"
+        android:title="Close bluetooth" />
+
+    <item
+        android:id="@+id/main_scan_device"
+        android:title="Scan device" />
+
+    <item
+        android:id="@+id/main_test_print"
+        android:title="Test print" />
+</menu>
