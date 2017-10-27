@@ -17,7 +17,8 @@ import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Created by yanweiqiang on 2017/10/18.
+ * Author yanweiqiang.
+ *   Date 2017/10/18.
  */
 
 public class BtConnector implements IBtConnector {
@@ -56,11 +57,9 @@ public class BtConnector implements IBtConnector {
 
     @Override
     public void connect(final BluetoothDevice currentDevice, final Callback callback) {
-        Log.i(tag, "connect");
         if (!BtManager.hasBluetoothModule()) {
             return;
         }
-        Log.i(tag, "connect start");
 
         new Thread(new Runnable() {
             Timer timer;
@@ -68,8 +67,6 @@ public class BtConnector implements IBtConnector {
 
             @Override
             public void run() {
-                Log.i(tag, "connect 0");
-
                 if (state != State.IDLE) {
                     return;
                 }
@@ -101,7 +98,6 @@ public class BtConnector implements IBtConnector {
                     currentSocket.connect();
                     triggerSuccess();
                 } catch (IOException e) {
-                    Log.i(tag, e.getMessage());
                     triggerFailure();
                     e.printStackTrace();
                 } finally {
@@ -287,5 +283,4 @@ public class BtConnector implements IBtConnector {
     public BluetoothSocket getSocket() {
         return socket;
     }
-
 }
