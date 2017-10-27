@@ -89,7 +89,7 @@ public class PrintCenter extends IntentService {
                     @Override
                     public void run() {
                         Observer.trigger("disconnected");
-                        Toast.makeText(getApplicationContext(), "printer disconnected...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Printer disconnected...", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

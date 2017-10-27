@@ -20,6 +20,7 @@ public class BtManager {
     public static final String FOUND = BluetoothDevice.ACTION_FOUND;
     public static final String BOND_STATE_CHANGED = BluetoothDevice.ACTION_BOND_STATE_CHANGED;
     public static final String PAIRING_REQUEST = "android.bluetooth.device.action.PAIRING_REQUEST";
+    public static final int REQUEST_CODE = 0xa1;
 
     private static BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private DiscoveryCallback discoveryCallback;
@@ -45,14 +46,8 @@ public class BtManager {
     }
 
     public static boolean enableBluetooth(Activity activity) {
-        activity.startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), 0xa1);
+        activity.startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_CODE);
         return true;
-    }
-
-    public static void onEnableResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == 0xa1 && resultCode == Activity.RESULT_OK) {
-            startDiscoveryBluetooth();
-        }
     }
 
     public static boolean disableBluetooth() {

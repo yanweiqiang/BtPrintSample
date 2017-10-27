@@ -98,8 +98,8 @@ public class BluetoothDisplayAdapter extends RecyclerView.Adapter<BluetoothDispl
 
                         @Override
                         public void onSuccess() {
-                            Toast.makeText(holder.itemView.getContext(), "Connected...", Toast.LENGTH_SHORT).show();
-                            context.getSharedPreferences("config", Context.MODE_PRIVATE).edit().putString("print_device", device.getAddress()).apply();
+                            Toast.makeText(holder.itemView.getContext(), "Printer connected...", Toast.LENGTH_SHORT).show();
+                            context.getSharedPreferences("cache", Context.MODE_PRIVATE).edit().putString("printer_address", device.getAddress()).apply();
                             notifyDataSetChanged();
                         }
 

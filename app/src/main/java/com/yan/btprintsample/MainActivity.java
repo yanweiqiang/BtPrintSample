@@ -18,6 +18,7 @@ import com.yan.btprint.print.PrintBuilder;
 public class MainActivity extends AppCompatActivity {
     private BluetoothDisplayAdapter adapter;
 
+    BtPermissionFragment btPermissionFragment;
     private BtManager btManager;
 
     private Observable observable = new Observable() {
@@ -57,15 +58,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         btManager.registerBluetoothReceiver(MainActivity.this);
-
-        BtPermissionFragment btPermissionFragment = new BtPermissionFragment();
-        if (!btPermissionFragment.hasPermission(this)) {
-            btPermissionFragment.requestPermission(getSupportFragmentManager());
-        }
-
         Observer.subscript(observable);
+        btPermissionFragment = new BtPermissionFragment();
+        getSupportFragmentManager().beginTransaction().add(btPermissionFragment, null).commitAllowingStateLoss();
         openBt();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BtManager.cancelDiscoveryBluetooth();
         btManager.unregisterBluetoothReceiver(MainActivity.this);
         Observer.remove(observable);
     }
@@ -102,7 +101,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        BtManager.onEnableResult(requestCode, resultCode, data);
+        if (requestCode == BtManager.REQUEST_CODE && resultCode == RESULT_OK) {
+            scanDevice();
+        }
     }
 
     private void openBt() {
@@ -121,8 +122,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void scanDevice() {
         adapter.refresh(null);
-        BtManager.cancelDiscoveryBluetooth();
-        BtManager.startDiscoveryBluetooth();
+        if (btPermissionFragment.hasPermission(this)) {
+            BtManager.cancelDiscoveryBluetooth();
+            BtManager.startDiscoveryBluetooth();
+        } else {
+            btPermissionFragment.requestPermission(new BtPermissionFragment.Callback() {
+                @Override
+                public void onSuccess() {
+                    BtManager.cancelDiscoveryBluetooth();
+                    BtManager.startDiscoveryBluetooth();
+                }
+
+                @Override
+                public void onFailure() {
+                    Toast.makeText(getBaseContext(), "No permission!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void testPrint() {
