@@ -89,6 +89,10 @@ public class BluetoothDisplayAdapter extends RecyclerView.Adapter<BluetoothDispl
                         }
                     });
                 } else {
+                    if (PrintCenter.getConnectedState() == IBtConnector.State.CONNECTED) {
+                        Toast.makeText(holder.itemView.getContext(), "One time one connection...", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     PrintCenter.connect(context, device, new BtConnector.Callback() {
                         @Override
                         public void onStart() {
