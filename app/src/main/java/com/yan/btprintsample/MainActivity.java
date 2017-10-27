@@ -16,7 +16,6 @@ import com.yan.btprint.bt.BtPermissionFragment;
 import com.yan.btprint.print.PrintBuilder;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
     private BluetoothDisplayAdapter adapter;
 
     private BtManager btManager;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BluetoothDisplayAdapter();
         recyclerView.setAdapter(adapter);
