@@ -1,2 +1,2 @@
 # BtPrintSample
-安卓手机，应用内部连接蓝牙打印机并打印。可以打印文字和图片，文字可以设置打印样式。
+Connct bluetooth printer than pirnt text and picture.
