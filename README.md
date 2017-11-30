@@ -1,2 +1,2 @@
 # BtPrintSample
-Connct bluetooth printer than pirnt text and picture.
+Connect bluetooth printer than pirnt text and picture.
